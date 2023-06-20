@@ -1,45 +1,26 @@
-# Network Firewall VPC Deployment
-
-This repository contains CloudFormation templates to deploy an AWS Network Firewall into each Virtual Private Cloud (VPC) for enhanced protection. Each VPC is individually safeguarded, and the blast radius is minimized by isolating the VPCs. There is no requirement for inter-VPC connectivity or connection to an AWS Transit Gateway. Each AWS Network Firewall can have its own firewall policy or utilize common rule groups, which are reusable collections of rules, across multiple firewalls. This approach enables independent management of each AWS Network Firewall, reducing the likelihood of misconfiguration and limiting the potential impact.
-
-## Architecture Overview
-
-The deployment is based on a Spoke VPC model, where each VPC consists of three subnets in each Availability Zone (AZ):
-
-1. **Private subnet** - This subnet is dedicated to the application or client instances and remains inaccessible from external networks.
-2. **Public subnet** - This subnet hosts a NAT Gateway, allowing instances in the private subnet to initiate outbound connections while remaining hidden from external entities.
-3. **Firewall subnet** - This subnet serves as the endpoint for the AWS Network Firewall. It handles the traffic filtering and protection for the VPC.
-
-## Deployment Steps
-
-Follow the steps below to deploy the Network Firewall VPC setup:
-
-1. Clone this repository to your local environment or download the CloudFormation template files.
-
-2. Open the AWS Management Console and navigate to the CloudFormation service.
-
-3. Create a new stack and specify the location of the CloudFormation template file `NAT_vpc_anfw_2az.yml`.
-
-4. Provide the necessary parameters required for the deployment, such as VPC CIDR blocks, subnet configurations, and other network-related details.
-
-5. Review the configuration and click on "Create stack" to initiate the deployment.
-
-6. Once the stack creation is complete, AWS Network Firewalls will be provisioned in each VPC, along with the associated subnets and routing tables.
-
-## Routing Configuration
-
-To ensure the return traffic is directed through the firewall endpoint in the same AZ, an Ingress Route Table is associated with the Internet Gateway. This route table should have a route entry pointing towards the firewall endpoint located in the same AZ. By doing so, the traffic flow is correctly managed, and the necessary security checks are applied before the traffic reaches its destination.
-
-## Additional Resources
-
-For more information on AWS Network Firewall and its capabilities, please refer to the following documentation:
-
-- [AWS Network Firewall Documentation](https://docs.aws.amazon.com/network-firewall)
-
-![AWS-Networkfirewall on AWS](designer.png)
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to modify and adapt it to your specific needs.
-
-**Note:** This deployment is provided as a starting point and should be reviewed and customized based on your specific requirements and security policies.
+<h1 id="networkfirewallvpcdeploymentstrengtheningyourvpcsecurity">Network Firewall VPC Deployment: Strengthening Your VPC Security</h1>
+<p>In today's digital landscape, securing your Virtual Private Cloud (VPC) is of utmost importance. With the ever-increasing sophistication of cyber threats, it is crucial to implement robust network firewall and intrusion detection and prevention filtering mechanisms. AWS Network Firewall offers a stateful, managed solution that provides enhanced security for your VPCs in Amazon VPC. In this article, we will explore the deployment of AWS Network Firewall in a VPC, its architecture, deployment steps, routing configuration, and additional resources.</p>
+<h2 id="architectureoverviewsafeguardingyourvpcs">Architecture Overview: Safeguarding Your VPCs</h2>
+<p>The deployment of the AWS Network Firewall follows a Spoke VPC model, ensuring that each VPC is individually protected and minimizing the blast radius in case of a security breach. This approach eliminates the need for inter-VPC connectivity or connection to an AWS Transit Gateway, enhancing the isolation and security of each VPC.</p>
+<p>In this model, each VPC consists of three subnets in each Availability Zone (AZ). The private subnet is dedicated to application or client instances and remains inaccessible from external networks. The public subnet hosts a NAT Gateway, enabling outbound connections for instances in the private subnet while keeping them hidden from external entities. Finally, the firewall subnet serves as the endpoint for the AWS Network Firewall, responsible for traffic filtering and protection within the VPC.</p>
+<h2 id="deploymentstepsconfiguringawsnetworkfirewallinyourvpc">Deployment Steps: Configuring AWS Network Firewall in Your VPC</h2>
+<p>To deploy the Network Firewall VPC setup, follow the steps outlined below:</p>
+<ol>
+<li><p>Clone the repository containing the CloudFormation templates or download the template files directly.</p></li>
+<li><p>Open the AWS Management Console and navigate to the CloudFormation service.</p></li>
+<li><p>Create a new stack and specify the location of the CloudFormation template file, such as <code>NAT_vpc_anfw_2az.yml</code>.</p></li>
+<li><p>Provide the necessary parameters required for the deployment, including VPC CIDR blocks, subnet configurations, and other network-related details.</p></li>
+<li><p>Review the configuration and click on "Create stack" to initiate the deployment process.</p></li>
+<li><p>Once the stack creation is complete, the AWS Network Firewalls will be provisioned in each VPC, along with the associated subnets and routing tables, bolstering the security of your VPCs.</p></li>
+</ol>
+<h2 id="routingconfigurationdirectingtrafficthroughawsnetworkfirewall">Routing Configuration: Directing Traffic Through AWS Network Firewall</h2>
+<p>To ensure that return traffic is directed through the firewall endpoint in the same AZ, an Ingress Route Table is associated with the Internet Gateway. This route table should include a route entry pointing towards the firewall endpoint located in the same AZ. By doing so, the traffic flow is effectively managed, and necessary security checks are applied before the traffic reaches its intended destination, fortifying the overall security posture of your VPC.</p>
+<h2 id="managingfirewallpoliciesandrulegroupsflexibilityandenhancedsecurity">Managing Firewall Policies and Rule Groups: Flexibility and Enhanced Security</h2>
+<p>AWS Network Firewall offers the flexibility to define firewall policies and utilize common rule groups across multiple firewalls. A firewall policy defines the configuration settings for an AWS Network Firewall firewall, including the firewall policy association and the subnets to be used for the firewall endpoints. By leveraging common rule groups, which are reusable collections of rules, you can streamline and simplify your security management. This approach empowers you to independently manage each AWS Network Firewall, reducing the likelihood of misconfiguration and limiting the potential impact.</p>
+<h2 id="additionalresourcesexploringawsnetworkfirewallcapabilities">Additional Resources: Exploring AWS Network Firewall Capabilities</h2>
+<p>For more in-depth information on AWS Network Firewall and its capabilities, refer to the official AWS documentation. The documentation provides comprehensive insights into the various features and functionalities of AWS Network Firewall, enabling you to make informed decisions and effectively leverage this powerful security service.</p>
+<p><img src="https://github.com/kkpkishan/AWS-Networkfirewall-VPC/blob/main/designer.png" alt="AWS-Networkfirewall on AWS" /></p>
+<h2 id="conclusionstrengthenyourvpcsecuritywithawsnetworkfirewall">Conclusion: Strengthen Your VPC Security with AWS Network Firewall</h2>
+<p>Deploying AWS Network Firewall in your VPCs is a crucial step towards enhancing the security and protection of your cloud infrastructure. By adopting the Spoke VPC model and leveraging the capabilities of AWS Network Firewall, you can isolate and safeguard each VPC, minimizing the impact of potential security breaches. The routing configuration ensures that traffic is directed through the firewall endpoints, enabling comprehensive security checks. With the ability to manage firewall policies and utilize common rule groups, you can efficiently manage and enforce security policies while reducing the risk of misconfiguration.</p>
+<p>Remember, this deployment serves as a starting point and should be tailored to meet your specific requirements and security policies. Regularly review and update your security measures to stay ahead of evolving threats and ensure the ongoing protection of your VPCs.</p>
+<p><strong>Note:</strong> This article is licensed under the <a href="https://github.com/kkpkishan/AWS-Networkfirewall-VPC/blob/main/LICENSE">MIT License</a>. Feel free to modify and adapt it to your specific needs.</p>
